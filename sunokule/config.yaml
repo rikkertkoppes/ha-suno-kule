@@ -1,0 +1,12 @@
+name: "Suno Kule"
+version: "0.0.1-preview"
+slug: "sunokule"
+description: "Realtime WLED visual programming for Home Assistant"
+arch:
+  - amd64
+  - aarch64
+startup: services
+boot: auto
+init: false
+
+image: "ghcr.io/rikkertkoppes/ha-suno-kule-{arch}"
