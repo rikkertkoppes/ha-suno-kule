@@ -1,4 +1,4 @@
-# Suno Kule Home Assistant Add-on
+# Suno Kule Home Assistant App
 
 Suno Kule is a visual shader-style editor for animated LED setups.
 
@@ -20,8 +20,8 @@ If this does not work in your setup, follow the manual steps below.
 
 ### 1. Add this repository
 
-1. In Home Assistant, open **Settings** -> **Add-ons**.
-2. Open the **Add-on Store**.
+1. In Home Assistant, open **Settings** -> **Apps**.
+2. Open the **App Store**.
 3. Open the menu (top-right) and choose **Repositories**.
 4. Add this repository URL:
 
@@ -29,11 +29,11 @@ If this does not work in your setup, follow the manual steps below.
 
 5. Confirm and close the repository dialog.
 
-### 2. Install the Suno Kule add-on
+### 2. Install the Suno Kule app
 
-1. Search for **Suno Kule** in the Add-on Store.
+1. Search for **Suno Kule** in the App Store.
 2. Open it and click **Install**.
-3. (Optional) Configure add-on options.
+3. (Optional) Configure app options.
 4. Click **Start**.
 5. If you want quick access, enable **Show in sidebar**.
 
