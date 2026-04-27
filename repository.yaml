@@ -1,4 +1,4 @@
 name: "Suno Kule"
-# url: "https://github.com/YOUR_USER/YOUR_ADDON_REPO"
+url: "https://github.com/rikkertkoppes/ha-suno-kule"
 maintainer: "Rikkert Koppes <rikkert@rikkertkoppes.com>"
 description: "Real-time LED graph runtime for WLED with Home Assistant integration"

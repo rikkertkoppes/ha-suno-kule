@@ -2,6 +2,7 @@ name: "Suno Kule"
 version: "0.0.1-preview"
 slug: "sunokule"
 description: "Realtime WLED visual programming for Home Assistant"
+url: "https://github.com/rikkertkoppes/ha-suno-kule"
 arch:
   - amd64
   - aarch64
