@@ -8,6 +8,14 @@ It lets you:
 - build animation logic as a node graph (the shader graph)
 - run those animations live from Home Assistant
 
+## Quick Install Button
+
+Use this button to open the App Repository dialog in Home Assistant with the Suno Kule repository URL prefilled:
+
+[![Open your Home Assistant instance and add this repository.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Frikkertkoppes%2Fha-suno-kule)
+
+If this does not work in your setup, follow the manual steps below.
+
 ## Install In Home Assistant
 
 ### 1. Add this repository
