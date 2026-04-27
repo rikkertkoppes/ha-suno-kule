@@ -15,7 +15,9 @@ homeassistant_api: true
 hassio_api: true
 panel_icon: mdi:led-strip-variant
 panel_title: Suno Kule
-ports: {}
-ports_description: {}
+ports:
+  3001/tcp: 3001
+ports_description:
+  3001/tcp: Suno Kule API
 
 image: "ghcr.io/rikkertkoppes/ha-suno-kule-{arch}"
