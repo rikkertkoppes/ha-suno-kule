@@ -8,5 +8,13 @@ arch:
 startup: services
 boot: auto
 init: false
+ingress: true
+ingress_port: 3001
+homeassistant_api: true
+hassio_api: true
+panel_icon: mdi:led-strip-variant
+panel_title: Suno Kule
+ports: {}
+ports_description: {}
 
 image: "ghcr.io/rikkertkoppes/ha-suno-kule-{arch}"
