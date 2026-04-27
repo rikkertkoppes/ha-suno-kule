@@ -1,5 +1,5 @@
 name: "Suno Kule"
-version: "0.0.1-preview"
+version: "0.0.1-preview2"
 slug: "sunokule"
 description: "Realtime WLED visual programming for Home Assistant"
 url: "https://github.com/rikkertkoppes/ha-suno-kule"
