@@ -1,5 +1,5 @@
 name: "Suno Kule"
-version: "0.0.1-preview2"
+version: "0.0.1-preview3"
 slug: "sunokule"
 description: "Realtime WLED visual programming for Home Assistant"
 url: "https://github.com/rikkertkoppes/ha-suno-kule"
@@ -20,4 +20,4 @@ ports:
 ports_description:
   3001/tcp: Suno Kule API
 
-image: "ghcr.io/rikkertkoppes/ha-suno-kule-{arch}"
+image: "ghcr.io/rikkertkoppes/ha-suno-kule"
