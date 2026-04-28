@@ -96,3 +96,13 @@ jobs:
               "/user/packages/container/$package/visibility" \
               -f visibility=public || echo "Could not set $package public (may be already public or not owned by this repo)"
           done
+
+      - name: Update config.yaml version and push
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          sed -i -E "s|^version:.*$|version: \"$VERSION\"|" sunokule/config.yaml
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add sunokule/config.yaml
+          git commit -m "release: v$VERSION [skip ci]" || echo "No changes to commit"
+          git push origin HEAD:master
