@@ -1,0 +1,98 @@
+name: Build and publish Suno Kule images (from private repo)
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    env:
+      HA_ADDON_IMAGE_NAME: ghcr.io/rikkertkoppes/ha-suno-kule
+      STANDALONE_IMAGE_NAME: ghcr.io/rikkertkoppes/suno-kule
+      PRIVATE_REPO: rikkertkoppes/ha-suno-kule-build
+    steps:
+      - name: Checkout private repo source
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.PRIVATE_REPO }}
+          token: ${{ secrets.PRIVATE_REPO_PAT }}
+          path: private-src
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push add-on image (amd64)
+        run: |
+          docker buildx build \
+            --file private-src/sunokule/apps/addon/Dockerfile \
+            --platform linux/amd64 \
+            --push \
+            --tag $HA_ADDON_IMAGE_NAME-amd64:latest \
+            private-src
+
+      - name: Build and push add-on image (aarch64)
+        run: |
+          docker buildx build \
+            --file private-src/sunokule/apps/addon/Dockerfile \
+            --platform linux/arm64 \
+            --push \
+            --tag $HA_ADDON_IMAGE_NAME-aarch64:latest \
+            private-src
+
+      - name: Build and push standalone image (amd64)
+        run: |
+          docker buildx build \
+            --file private-src/sunokule/docker/standalone/Dockerfile \
+            --platform linux/amd64 \
+            --push \
+            --tag $STANDALONE_IMAGE_NAME-amd64:latest \
+            private-src
+
+      - name: Build and push standalone image (aarch64)
+        run: |
+          docker buildx build \
+            --file private-src/sunokule/docker/standalone/Dockerfile \
+            --platform linux/arm64 \
+            --push \
+            --tag $STANDALONE_IMAGE_NAME-aarch64:latest \
+            private-src
+
+      - name: Publish add-on multi-arch manifest
+        run: |
+          docker buildx imagetools create \
+            -t "$HA_ADDON_IMAGE_NAME:latest" \
+            "$HA_ADDON_IMAGE_NAME-amd64:latest" \
+            "$HA_ADDON_IMAGE_NAME-aarch64:latest"
+
+      - name: Publish standalone multi-arch manifest
+        run: |
+          docker buildx imagetools create \
+            -t "$STANDALONE_IMAGE_NAME:latest" \
+            "$STANDALONE_IMAGE_NAME-amd64:latest" \
+            "$STANDALONE_IMAGE_NAME-aarch64:latest"
+
+      - name: Make GHCR packages public
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for package in ha-suno-kule ha-suno-kule-amd64 ha-suno-kule-aarch64 suno-kule suno-kule-amd64 suno-kule-aarch64; do
+            gh api \
+              --method PATCH \
+              -H "Accept: application/vnd.github+json" \
+              "/user/packages/container/$package/visibility" \
+              -f visibility=public || echo "Could not set $package public (may be already public or not owned by this repo)"
+          done
